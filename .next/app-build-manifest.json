@@ -1,0 +1,59 @@
+{
+  "pages": {
+    "/(defaults)/trainee/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/css/app/(defaults)/trainee/page.css",
+      "static/chunks/app/(defaults)/trainee/page.js"
+    ],
+    "/(defaults)/layout": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/(defaults)/layout.js"
+    ],
+    "/layout": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/css/app/layout.css",
+      "static/chunks/app/layout.js"
+    ],
+    "/loading": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/loading.js"
+    ],
+    "/not-found": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/not-found.js"
+    ],
+    "/_not-found/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/_not-found/page.js"
+    ],
+    "/(defaults)/subscription/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/css/app/(defaults)/subscription/page.css",
+      "static/chunks/app/(defaults)/subscription/page.js"
+    ],
+    "/(defaults)/clubmember/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/css/app/(defaults)/clubmember/page.css",
+      "static/chunks/app/(defaults)/clubmember/page.js"
+    ],
+    "/(defaults)/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/(defaults)/page.js"
+    ],
+    "/(defaults)/expenditure/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/css/app/(defaults)/expenditure/page.css",
+      "static/chunks/app/(defaults)/expenditure/page.js"
+    ]
+  }
+}
