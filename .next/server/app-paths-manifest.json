@@ -1,9 +1,10 @@
 {
-  "/api/expenditure/route": "app/api/expenditure/route.js",
-  "/api/expenditure/[id]/route": "app/api/expenditure/[id]/route.js",
   "/icon.png/route": "app/icon.png/route.js",
-  "/(defaults)/clubmember/page": "app/(defaults)/clubmember/page.js",
-  "/(defaults)/expenditure/page": "app/(defaults)/expenditure/page.js",
-  "/(defaults)/trainee/page": "app/(defaults)/trainee/page.js",
-  "/(defaults)/subscription/page": "app/(defaults)/subscription/page.js"
+  "/api/studentform/route": "app/api/studentform/route.js",
+  "/api/clubmember/route": "app/api/clubmember/route.js",
+  "/api/subscription/route": "app/api/subscription/route.js",
+  "/api/expenditure/route": "app/api/expenditure/route.js",
+  "/(defaults)/page": "app/(defaults)/page.js",
+  "/(defaults)/dashboard/page": "app/(defaults)/dashboard/page.js",
+  "/(defaults)/expenditure/page": "app/(defaults)/expenditure/page.js"
 }

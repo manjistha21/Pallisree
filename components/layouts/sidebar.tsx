@@ -138,6 +138,21 @@ const Sidebar = () => {
                       </div>
                     </Link>
                   </li>
+
+
+
+                  <li className="nav-item">
+                    <Link href="/expenditure" className="group">
+                      <div className="flex items-center">
+                        <IconMenuDocumentation className="shrink-0 group-hover:!text-primary" />
+                        <span className="text-black dark:text-[#506690] dark:group-hover:text-white-dark ltr:pl-3 rtl:pr-3">
+                          {t("Expenditure")}
+                        </span>
+                      </div>
+                    </Link>
+                  </li>
+
+
                 </ul>
               </li>
             </ul>
