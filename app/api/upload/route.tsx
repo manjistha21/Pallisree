@@ -1,7 +1,7 @@
 import multer, { StorageEngine } from 'multer';
 import path from 'path';
 import fs from 'fs';
-import { NextApiRequest, NextApiResponse, NextResponse } from 'next/server';
+import { NextApiRequest, NextApiResponse } from 'next';
 import { ApiRequest } from 'next/dist/server/api-utils';
 
 // Ensure the upload directory exists
@@ -70,8 +70,4 @@ export async function POST(req: NextApiRequest, res: NextApiResponse) {
   }
 }
 
-export const config = {
-  api: {
-    bodyParser: false,
-  },
-};
+export const runtime = 'nodejs';  // New configuration method

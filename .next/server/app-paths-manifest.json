@@ -1,4 +1,7 @@
 {
-  "/(defaults)/dashboard/page": "app/(defaults)/dashboard/page.js",
-  "/(defaults)/expenditure/page": "app/(defaults)/expenditure/page.js"
+  "/api/studentform/route": "app/api/studentform/route.js",
+  "/api/upload/route": "app/api/upload/route.js",
+  "/_not-found/page": "app/_not-found/page.js",
+  "/(defaults)/trainee/page": "app/(defaults)/trainee/page.js",
+  "/(defaults)/page": "app/(defaults)/page.js"
 }
