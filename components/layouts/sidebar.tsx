@@ -3,7 +3,6 @@ import PerfectScrollbar from "react-perfect-scrollbar";
 import { useDispatch, useSelector } from "react-redux";
 import Link from "next/link";
 import { toggleSidebar } from "@/store/themeConfigSlice";
-import AnimateHeight from "react-animate-height";
 import { IRootState } from "@/store";
 import { useState, useEffect } from "react";
 import IconCaretsDown from "@/components/icon/icon-carets-down";

@@ -1,10 +1,4 @@
 {
-  "/icon.png/route": "app/icon.png/route.js",
-  "/api/studentform/route": "app/api/studentform/route.js",
-  "/api/clubmember/route": "app/api/clubmember/route.js",
-  "/api/subscription/route": "app/api/subscription/route.js",
-  "/api/expenditure/route": "app/api/expenditure/route.js",
-  "/(defaults)/page": "app/(defaults)/page.js",
   "/(defaults)/dashboard/page": "app/(defaults)/dashboard/page.js",
   "/(defaults)/expenditure/page": "app/(defaults)/expenditure/page.js"
 }

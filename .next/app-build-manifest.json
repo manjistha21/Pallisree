@@ -1,9 +1,9 @@
 {
   "pages": {
-    "/(defaults)/page": [
+    "/(defaults)/dashboard/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/(defaults)/page.js"
+      "static/chunks/app/(defaults)/dashboard/page.js"
     ],
     "/(defaults)/layout": [
       "static/chunks/webpack.js",
@@ -25,11 +25,6 @@
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/chunks/app/not-found.js"
-    ],
-    "/(defaults)/dashboard/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/(defaults)/dashboard/page.js"
     ],
     "/(defaults)/expenditure/page": [
       "static/chunks/webpack.js",
