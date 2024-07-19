@@ -1,7 +1,7 @@
 import multer, { StorageEngine } from 'multer';
 import path from 'path';
 import fs from 'fs';
-import { NextResponse, NextRequest } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 
 // Ensure the upload directory exists
 const uploadDir = path.join(process.cwd(), 'public/assets/trainee');
@@ -27,7 +27,7 @@ const uploadMiddleware = upload.fields([
   { name: 'documentfile', maxCount: 1 },
 ]);
 
-const runMiddleware = (req: NextRequest, res: NextResponse, fn: Function) => {
+const runMiddleware = (req: any, res: any, fn: Function) => {
   return new Promise<void>((resolve, reject) => {
     fn(req, res, (result: unknown) => {
       if (result instanceof Error) {
@@ -38,9 +38,12 @@ const runMiddleware = (req: NextRequest, res: NextResponse, fn: Function) => {
   });
 };
 
-export async function POST(req: NextRequest, res: NextResponse) {
+export async function POST(req: NextRequest) {
   try {
     console.log('Starting upload middleware');
+
+    const res: any = {}; // Mock response object
+
     await runMiddleware(req, res, uploadMiddleware);
     console.log('Middleware finished processing');
 
@@ -62,10 +65,10 @@ export async function POST(req: NextRequest, res: NextResponse) {
       }
     });
 
-    return res.status(200).json({ data: 'success' });
+    return NextResponse.json({ data: 'success' });
   } catch (error) {
     console.error('Error:', error);
-    return res.status(500).json({ error: `Something went wrong: ${(error as Error).message}` });
+    return NextResponse.json({ error: `Something went wrong: ${(error as Error).message}` }, { status: 500 });
   }
 }
 
