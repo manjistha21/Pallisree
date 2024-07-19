@@ -1,8 +1,7 @@
 import multer, { StorageEngine } from 'multer';
 import path from 'path';
 import fs from 'fs';
-import { NextApiRequest, NextApiResponse } from 'next';
-import { ApiRequest } from 'next/dist/server/api-utils';
+import { NextResponse, NextRequest } from 'next/server';
 
 // Ensure the upload directory exists
 const uploadDir = path.join(process.cwd(), 'public/assets/trainee');
@@ -28,7 +27,7 @@ const uploadMiddleware = upload.fields([
   { name: 'documentfile', maxCount: 1 },
 ]);
 
-const runMiddleware = (req: NextApiRequest, res: NextApiResponse, fn: Function) => {
+const runMiddleware = (req: NextRequest, res: NextResponse, fn: Function) => {
   return new Promise<void>((resolve, reject) => {
     fn(req, res, (result: unknown) => {
       if (result instanceof Error) {
@@ -39,7 +38,7 @@ const runMiddleware = (req: NextApiRequest, res: NextApiResponse, fn: Function) 
   });
 };
 
-export async function POST(req: NextApiRequest, res: NextApiResponse) {
+export async function POST(req: NextRequest, res: NextResponse) {
   try {
     console.log('Starting upload middleware');
     await runMiddleware(req, res, uploadMiddleware);
