@@ -2,7 +2,7 @@ import connectDB from "@/config/database";
 import Expenditure from "@/models/expenditure";
 import { NextResponse } from "next/server";
 
-async function setCORSHeaders(response) {
+async function setCORSHeaders(response: NextResponse) {
   response.headers.set('Access-Control-Allow-Origin', '*');
   response.headers.set('Access-Control-Allow-Methods', 'POST, GET, DELETE, PUT, OPTIONS');
   response.headers.set('Access-Control-Allow-Headers', 'Content-Type');

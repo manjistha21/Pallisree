@@ -1,7 +1,6 @@
 import connectDB from "@/config/database";
-import { NextApiRequest } from "next";
 import Student from "@/models/studentform";
-import { NextResponse } from "next/server";
+import {NextRequest, NextResponse } from "next/server";
 
 async function setCORSHeaders(response: NextResponse) {
   response.headers.set("Access-Control-Allow-Origin", "*");
@@ -81,7 +80,7 @@ export async function PUT(
 }
 
 export async function GET(
-  request: NextApiRequest,
+  request: NextRequest,
   { params }: { params: { id: string } }
 ) {
   try {
