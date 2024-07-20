@@ -34,6 +34,7 @@ const initialRowData = [
     fathersname: "John",
     guardiansname: "Rahul",
     guardiansoccupation: "Service",
+    gender:"female",
     address: "kolkata",
     phoneno: "123456",
     date: "2004-05-28",
@@ -51,12 +52,21 @@ const col = [
   "fathersname",
   "guardiansname",
   "guardiansoccupation",
+  "gender",
   "address",
   "phoneno",
   "date",
   "nameoftheschool",
   "bloodgroup",
   "document",
+];
+
+
+
+
+const Genders = [
+  "Female",
+  "Male",
 ];
 
 
@@ -138,6 +148,7 @@ const ComponentsDatatablesTrainee = () => {
     fathersname: string;
     guardiansname: string;
     guardiansoccupation: string;
+    gender: string;
     address: string;
     phoneno: string;
     date: string;
@@ -166,6 +177,7 @@ const ComponentsDatatablesTrainee = () => {
         fathersname: trainee.fathersname,
         guardiansname: trainee.guardiansname,
         guardiansoccupation: trainee.guardiansoccupation,
+        gender: trainee.gender,
         address: trainee.address,
         phoneno: trainee.phoneno,
         date: trainee.date,
@@ -226,6 +238,7 @@ const ComponentsDatatablesTrainee = () => {
           item.fathersname.toLowerCase().includes(search.toLowerCase()) ||
           item.guardiansname.toLowerCase().includes(search.toLowerCase()) ||
           item.guardiansoccupation.toLowerCase().includes(search.toLowerCase()) ||
+          item.gender.toLowerCase().includes(search.toLowerCase()) ||
           item.address.toLowerCase().includes(search.toLowerCase()) ||
           item.phoneno.toString().includes(search.toLowerCase()) ||
           item.date.toString().includes(search.toLowerCase()) ||
@@ -285,6 +298,7 @@ const ComponentsDatatablesTrainee = () => {
       fathersname: "",
       guardiansname: "",
       guardiansoccupation: "",
+      gender: "",
       address: "",
       phoneno: "",
       date: "",
@@ -472,6 +486,7 @@ const ComponentsDatatablesTrainee = () => {
     fathersname: "",
     guardiansname: "",
     guardiansoccupation: "",
+    gender: "",
     address: "",
     phoneno: "",
     date: "",
@@ -601,6 +616,7 @@ const ComponentsDatatablesTrainee = () => {
           fathersname: data.student.fathersname || "",
           guardiansname: data.student.guardiansname || "",
           guardiansoccupation: data.student.guardiansoccupation || "",
+          gender: data.student.gender || "",
           address: data.student.address || "",
           phoneno: data.student.phoneno || "",
           date: data.student.date ? data.student.date.split("T")[0] : "",
@@ -777,6 +793,36 @@ const ComponentsDatatablesTrainee = () => {
                                   value={formData.guardiansoccupation}
                                 />
                               </div>
+
+
+
+
+                              <div>
+                                <label htmlFor="gender">
+                                  Gender
+                                </label>
+                                <select
+                                  id="gender"
+                                  name="gender"
+                                  className="form-select"
+                                  onChange={handleChange}
+                                  value={formData.gender}
+                                >
+                                  <option value="">
+                                    Select Gender
+                                  </option>
+                                  {Genders.map((type) => (
+                                    <option key={type} value={type}>
+                                      {type}
+                                    </option>
+                                  ))}
+                                </select>
+                              </div>
+
+
+
+
+
                               <div>
                                 <label htmlFor="address">Address</label>
                                 <input
@@ -975,6 +1021,7 @@ const ComponentsDatatablesTrainee = () => {
             { accessor: "fathersname", sortable: true },
             { accessor: "guardiansname", sortable: true },
             { accessor: "guardiansoccupation", sortable: true },
+            { accessor: "gender", sortable: true },
             { accessor: "address", sortable: true },
             { accessor: "phoneno", sortable: true },
             {
