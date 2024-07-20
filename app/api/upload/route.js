@@ -2,7 +2,7 @@ import { writeFile, mkdir } from 'fs/promises';
 import path from 'path';
 import { NextRequest, NextResponse } from 'next/server';
 
-const uploadDir = path.join(process.cwd(), 'public/assets/trainee');
+const uploadDir = path.join(process.cwd(), 'public/assets/images');
 
 async function ensureDir(dir) {
   try {
