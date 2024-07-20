@@ -28,6 +28,10 @@ const studentformSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  gender:{
+    type: String,
+    required: false,
+  },
   address: {
     type: String,
     required: true,
