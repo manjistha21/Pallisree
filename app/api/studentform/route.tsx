@@ -27,6 +27,7 @@ export async function POST(request: Request) {
       fathersname,
       guardiansname,
       guardiansoccupation,
+      gender,
       address,
       phoneno,
       date,
@@ -35,14 +36,16 @@ export async function POST(request: Request) {
       document,
     } = await request.json();
 
-    await connectDB();
-    await studentformModel.create({
+
+
+    console.log("Received payload:", {
       image,
       sportstype,
       name,
       fathersname,
       guardiansname,
       guardiansoccupation,
+      gender,
       address,
       phoneno,
       date,
@@ -50,6 +53,27 @@ export async function POST(request: Request) {
       bloodgroup,
       document,
     });
+
+
+
+    await connectDB();
+    const newStudentForm = await studentformModel.create({
+      image,
+      sportstype,
+      name,
+      fathersname,
+      guardiansname,
+      guardiansoccupation,
+      gender,
+      address,
+      phoneno,
+      date,
+      nameoftheschool,
+      bloodgroup,
+      document,
+    });
+
+    console.log("Created student form:", newStudentForm);
 
     let response = NextResponse.json(
       { message: "Student form created" },
