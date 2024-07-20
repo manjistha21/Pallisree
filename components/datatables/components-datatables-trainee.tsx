@@ -25,16 +25,25 @@ import dayjs from "dayjs";
 
 const MySwal = withReactContent(Swal);
 
+const showMessage8 = () => {
+  MySwal.fire({
+    title: "You can upload only one file or remove the last uploaded file",
+    toast: true,
+    position: "bottom-start",
+    showConfirmButton: false,
+    timer: 5000,
+    showCloseButton: true,
+  });
+};
+
 const initialRowData = [
   {
     id: "989",
     image: "iweiofthuji",
-    sportstype:"Cricket",
     name: "Caroline",
     fathersname: "John",
     guardiansname: "Rahul",
     guardiansoccupation: "Service",
-    gender:"female",
     address: "kolkata",
     phoneno: "123456",
     date: "2004-05-28",
@@ -47,33 +56,16 @@ const initialRowData = [
 const col = [
   "id",
   "image",
-  "sportstype",
   "name",
   "fathersname",
   "guardiansname",
   "guardiansoccupation",
-  "gender",
   "address",
   "phoneno",
   "date",
   "nameoftheschool",
   "bloodgroup",
   "document",
-];
-
-
-
-
-const Genders = [
-  "Female",
-  "Male",
-];
-
-
-
-const Sports = [
-  "Cricket",
-  "Football",
 ];
 
 const ComponentsDatatablesTrainee = () => {
@@ -108,7 +100,7 @@ const ComponentsDatatablesTrainee = () => {
   const [endDate, setEndDate] = useState(null);
   const [ageFilter, setAgeFilter] = useState("");
 
-  const newTraineeadded = () => {
+  const newDocumnetadded = () => {
     MySwal.fire({
       title: "New Trainee has been added",
       toast: true,
@@ -144,11 +136,9 @@ const ComponentsDatatablesTrainee = () => {
   interface Trainee {
     id: string;
     name: string;
-    sportstype: string;
     fathersname: string;
     guardiansname: string;
     guardiansoccupation: string;
-    gender: string;
     address: string;
     phoneno: string;
     date: string;
@@ -172,12 +162,10 @@ const ComponentsDatatablesTrainee = () => {
       const formattedTrainee = data.studentforms.map((trainee: Trainee) => ({
         id: trainee._id,
         image: trainee.image,
-        sportstype:trainee.sportstype,
         name: trainee.name,
         fathersname: trainee.fathersname,
         guardiansname: trainee.guardiansname,
         guardiansoccupation: trainee.guardiansoccupation,
-        gender: trainee.gender,
         address: trainee.address,
         phoneno: trainee.phoneno,
         date: trainee.date,
@@ -234,11 +222,11 @@ const ComponentsDatatablesTrainee = () => {
           item.id.toString().includes(search.toLowerCase()) ||
           item.image.toString().includes(search.toLowerCase()) ||
           item.name.toLowerCase().includes(search.toLowerCase()) ||
-          item.sportstype.toLowerCase().includes(search.toLowerCase()) ||
           item.fathersname.toLowerCase().includes(search.toLowerCase()) ||
           item.guardiansname.toLowerCase().includes(search.toLowerCase()) ||
-          item.guardiansoccupation.toLowerCase().includes(search.toLowerCase()) ||
-          item.gender.toLowerCase().includes(search.toLowerCase()) ||
+          item.guardiansoccupation
+            .toLowerCase()
+            .includes(search.toLowerCase()) ||
           item.address.toLowerCase().includes(search.toLowerCase()) ||
           item.phoneno.toString().includes(search.toLowerCase()) ||
           item.date.toString().includes(search.toLowerCase()) ||
@@ -293,12 +281,10 @@ const ComponentsDatatablesTrainee = () => {
     setFormData({
       id: "",
       image: "",
-      sportstype:"",
       name: "",
       fathersname: "",
       guardiansname: "",
       guardiansoccupation: "",
-      gender: "",
       address: "",
       phoneno: "",
       date: "",
@@ -481,12 +467,10 @@ const ComponentsDatatablesTrainee = () => {
   const [formData, setFormData] = useState({
     id: "",
     image: "",
-    sportstype:"",
     name: "",
     fathersname: "",
     guardiansname: "",
     guardiansoccupation: "",
-    gender: "",
     address: "",
     phoneno: "",
     date: "",
@@ -514,7 +498,6 @@ const ComponentsDatatablesTrainee = () => {
   const handleFormSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-
     if (!editid) {
       let imageName = "";
       let docname = "";
@@ -540,7 +523,7 @@ const ComponentsDatatablesTrainee = () => {
         });
 
         if (res.ok) {
-          newTraineeadded();
+          newDocumnetadded();
           fetchTraineeData();
           setModal1(false);
           const formData = new FormData();
@@ -611,12 +594,10 @@ const ComponentsDatatablesTrainee = () => {
         setFormData({
           id: data.student._id || "",
           image: data.student._id || "",
-          sportstype: data.student.sportstype || "",
           name: data.student.name || "",
           fathersname: data.student.fathersname || "",
           guardiansname: data.student.guardiansname || "",
           guardiansoccupation: data.student.guardiansoccupation || "",
-          gender: data.student.gender || "",
           address: data.student.address || "",
           phoneno: data.student.phoneno || "",
           date: data.student.date ? data.student.date.split("T")[0] : "",
@@ -713,30 +694,6 @@ const ComponentsDatatablesTrainee = () => {
                                 />
                               </div>
 
-
-                              <div>
-                                <label htmlFor="sportstype">
-                                  Sports Type
-                                </label>
-                                <select
-                                  id="sportstype"
-                                  name="sportstype"
-                                  className="form-select"
-                                  onChange={handleChange}
-                                  value={formData.sportstype}
-                                >
-                                  <option value="">
-                                    Select Sports Type
-                                  </option>
-                                  {Sports.map((type) => (
-                                    <option key={type} value={type}>
-                                      {type}
-                                    </option>
-                                  ))}
-                                </select>
-                              </div>
-
-
                               <div>
                                 <label htmlFor="name">Name</label>
                                 <div>
@@ -793,36 +750,6 @@ const ComponentsDatatablesTrainee = () => {
                                   value={formData.guardiansoccupation}
                                 />
                               </div>
-
-
-
-
-                              <div>
-                                <label htmlFor="gender">
-                                  Gender
-                                </label>
-                                <select
-                                  id="gender"
-                                  name="gender"
-                                  className="form-select"
-                                  onChange={handleChange}
-                                  value={formData.gender}
-                                >
-                                  <option value="">
-                                    Select Gender
-                                  </option>
-                                  {Genders.map((type) => (
-                                    <option key={type} value={type}>
-                                      {type}
-                                    </option>
-                                  ))}
-                                </select>
-                              </div>
-
-
-
-
-
                               <div>
                                 <label htmlFor="address">Address</label>
                                 <input
@@ -1015,13 +942,10 @@ const ComponentsDatatablesTrainee = () => {
                 </div>
               ),
             },
-
-            { accessor: "sportstype", sortable: true },
             { accessor: "name", sortable: true },
             { accessor: "fathersname", sortable: true },
             { accessor: "guardiansname", sortable: true },
             { accessor: "guardiansoccupation", sortable: true },
-            { accessor: "gender", sortable: true },
             { accessor: "address", sortable: true },
             { accessor: "phoneno", sortable: true },
             {
