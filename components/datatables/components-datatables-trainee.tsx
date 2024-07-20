@@ -935,7 +935,7 @@ const ComponentsDatatablesTrainee = () => {
               render: (row) => (
                 <div className="flex items-center gap-2">
                   <img
-                    src={`/assets/trainee/${row.image}`}
+                    src={`/assets/images/${row.image}`}
                     className="h-9 w-9 max-w-none rounded-full"
                     alt=""
                   />
