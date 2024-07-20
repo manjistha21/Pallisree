@@ -966,7 +966,7 @@ const ComponentsDatatablesTrainee = () => {
                       type="button"
                       onClick={() => {
                         window.open(
-                          `/assets/trainee/${row.document}`,
+                          `/assets/images/${row.document}`,
                           "_blank"
                         );
                       }}
