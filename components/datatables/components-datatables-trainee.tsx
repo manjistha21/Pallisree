@@ -40,10 +40,12 @@ const initialRowData = [
   {
     id: "989",
     image: "iweiofthuji",
+    sportstype: "cricket",
     name: "Caroline",
     fathersname: "John",
     guardiansname: "Rahul",
     guardiansoccupation: "Service",
+    gender: "Female",
     address: "kolkata",
     phoneno: "123456",
     date: "2004-05-28",
@@ -56,16 +58,30 @@ const initialRowData = [
 const col = [
   "id",
   "image",
+  "sportstype",
   "name",
   "fathersname",
   "guardiansname",
   "guardiansoccupation",
+  "gender",
   "address",
   "phoneno",
   "date",
   "nameoftheschool",
   "bloodgroup",
   "document",
+];
+
+const Genders = [
+  "Female",
+  "Male",
+];
+
+
+
+const Sports = [
+  "Cricket",
+  "Football",
 ];
 
 const ComponentsDatatablesTrainee = () => {
@@ -135,10 +151,12 @@ const ComponentsDatatablesTrainee = () => {
 
   interface Trainee {
     id: string;
+    sportstype: string;
     name: string;
     fathersname: string;
     guardiansname: string;
     guardiansoccupation: string;
+    gender: string;
     address: string;
     phoneno: string;
     date: string;
@@ -162,10 +180,12 @@ const ComponentsDatatablesTrainee = () => {
       const formattedTrainee = data.studentforms.map((trainee: Trainee) => ({
         id: trainee._id,
         image: trainee.image,
+        sportstype: trainee.sportstype,
         name: trainee.name,
         fathersname: trainee.fathersname,
         guardiansname: trainee.guardiansname,
         guardiansoccupation: trainee.guardiansoccupation,
+        gender: trainee.gender,
         address: trainee.address,
         phoneno: trainee.phoneno,
         date: trainee.date,
@@ -221,12 +241,14 @@ const ComponentsDatatablesTrainee = () => {
         (search === "" ||
           item.id.toString().includes(search.toLowerCase()) ||
           item.image.toString().includes(search.toLowerCase()) ||
+          item.sportstype.toString().includes(search.toLowerCase()) ||
           item.name.toLowerCase().includes(search.toLowerCase()) ||
           item.fathersname.toLowerCase().includes(search.toLowerCase()) ||
           item.guardiansname.toLowerCase().includes(search.toLowerCase()) ||
           item.guardiansoccupation
             .toLowerCase()
             .includes(search.toLowerCase()) ||
+          item.gender.toLowerCase().includes(search.toLowerCase()) ||
           item.address.toLowerCase().includes(search.toLowerCase()) ||
           item.phoneno.toString().includes(search.toLowerCase()) ||
           item.date.toString().includes(search.toLowerCase()) ||
@@ -281,10 +303,12 @@ const ComponentsDatatablesTrainee = () => {
     setFormData({
       id: "",
       image: "",
+      sportstype: "",
       name: "",
       fathersname: "",
       guardiansname: "",
       guardiansoccupation: "",
+      gender:"",
       address: "",
       phoneno: "",
       date: "",
@@ -355,41 +379,40 @@ const ComponentsDatatablesTrainee = () => {
     newVariable = window.navigator;
 
     if (type === "csv") {
-        let coldelimiter = ";";
-        let linedelimiter = "\n";
-        let result = columns
-          .map((d) => capitalize(d))
-          .join(coldelimiter);
-        result += linedelimiter;
-        records.forEach((item) => {
-          columns.forEach((d, index) => {
-            if (index > 0) {
-              result += coldelimiter;
-            }
-            let val = item[d] ? item[d] : "";
-            // Check if the column is date and format it
-            if (d === "date" && val) {
-              val = formatDate(val); // Use formatDate to format date columns
-            }
-            result += val;
-          });
-          result += linedelimiter;
-        });
-    
-        if (result == null) return;
-        if (!result.match(/^data:text\/csv/i) && !newVariable.msSaveOrOpenBlob) {
-          var data = "data:application/csv;charset=utf-8," + encodeURIComponent(result);
-          var link = document.createElement("a");
-          link.setAttribute("href", data);
-          link.setAttribute("download", filename + ".csv");
-          link.click();
-        } else {
-          var blob = new Blob([result]);
-          if (newVariable.msSaveBlob) {
-            newVariable.msSaveBlob(blob, filename + ".csv");
+      let coldelimiter = ";";
+      let linedelimiter = "\n";
+      let result = columns
+        .map((d: any) => {
+          return capitalize(d);
+        })
+        .join(coldelimiter);
+      result += linedelimiter;
+      records.map((item: any) => {
+        columns.map((d: any, index: any) => {
+          if (index > 0) {
+            result += coldelimiter;
           }
+          let val = item[d] ? item[d] : "";
+          result += val;
+        });
+        result += linedelimiter;
+      });
+
+      if (result == null) return;
+      if (!result.match(/^data:text\/csv/i) && !newVariable.msSaveOrOpenBlob) {
+        var data =
+          "data:application/csv;charset=utf-8," + encodeURIComponent(result);
+        var link = document.createElement("a");
+        link.setAttribute("href", data);
+        link.setAttribute("download", filename + ".csv");
+        link.click();
+      } else {
+        var blob = new Blob([result]);
+        if (newVariable.msSaveOrOpenBlob) {
+          newVariable.msSaveBlob(blob, filename + ".csv");
         }
-      }  else if (type === "print") {
+      }
+    } else if (type === "print") {
       var rowhtml = "<p>" + filename + "</p>";
       rowhtml +=
         '<table style="width: 100%; " cellpadding="0" cellcpacing="0"><thead><tr style="color: #515365; background: #eff5ff; -webkit-print-color-adjust: exact; print-color-adjust: exact; "> ';
@@ -468,10 +491,12 @@ const ComponentsDatatablesTrainee = () => {
   const [formData, setFormData] = useState({
     id: "",
     image: "",
+    sportstype: "",
     name: "",
     fathersname: "",
     guardiansname: "",
     guardiansoccupation: "",
+    gender: "",
     address: "",
     phoneno: "",
     date: "",
@@ -595,10 +620,12 @@ const ComponentsDatatablesTrainee = () => {
         setFormData({
           id: data.student._id || "",
           image: data.student._id || "",
+          sportstype: data.student.sportstype || "",
           name: data.student.name || "",
           fathersname: data.student.fathersname || "",
           guardiansname: data.student.guardiansname || "",
           guardiansoccupation: data.student.guardiansoccupation || "",
+          gender: data.student.gender || "",
           address: data.student.address || "",
           phoneno: data.student.phoneno || "",
           date: data.student.date ? data.student.date.split("T")[0] : "",
@@ -695,6 +722,30 @@ const ComponentsDatatablesTrainee = () => {
                                 />
                               </div>
 
+
+
+                              <div>
+                                <label htmlFor="sportstype">
+                                  Sports Type
+                                </label>
+                                <select
+                                  id="sportstype"
+                                  name="sportstype"
+                                  className="form-select"
+                                  onChange={handleChange}
+                                  value={formData.sportstype}
+                                >
+                                  <option value="">
+                                    Select Sports Type
+                                  </option>
+                                  {Sports.map((type) => (
+                                    <option key={type} value={type}>
+                                      {type}
+                                    </option>
+                                  ))}
+                                </select>
+                              </div>
+
                               <div>
                                 <label htmlFor="name">Name</label>
                                 <div>
@@ -751,6 +802,32 @@ const ComponentsDatatablesTrainee = () => {
                                   value={formData.guardiansoccupation}
                                 />
                               </div>
+
+
+
+                              <div>
+                                <label htmlFor="gender">
+                                  Gender
+                                </label>
+                                <select
+                                  id="gender"
+                                  name="gender"
+                                  className="form-select"
+                                  onChange={handleChange}
+                                  value={formData.gender}
+                                >
+                                  <option value="">
+                                    Select Gender
+                                  </option>
+                                  {Genders.map((type) => (
+                                    <option key={type} value={type}>
+                                      {type}
+                                    </option>
+                                  ))}
+                                </select>
+                              </div>
+
+
                               <div>
                                 <label htmlFor="address">Address</label>
                                 <input
@@ -936,17 +1013,19 @@ const ComponentsDatatablesTrainee = () => {
               render: (row) => (
                 <div className="flex items-center gap-2">
                   <img
-                    src={`/assets/images/${row.image}`}
+                    src={`/assets/trainee/${row.image}`}
                     className="h-9 w-9 max-w-none rounded-full"
                     alt=""
                   />
                 </div>
               ),
             },
+            { accessor: "sportstype", sortable: true },
             { accessor: "name", sortable: true },
             { accessor: "fathersname", sortable: true },
             { accessor: "guardiansname", sortable: true },
             { accessor: "guardiansoccupation", sortable: true },
+            { accessor: "gender", sortable: true },
             { accessor: "address", sortable: true },
             { accessor: "phoneno", sortable: true },
             {
@@ -967,7 +1046,7 @@ const ComponentsDatatablesTrainee = () => {
                       type="button"
                       onClick={() => {
                         window.open(
-                          `/assets/images/${row.document}`,
+                          `/assets/trainee/${row.document}`,
                           "_blank"
                         );
                       }}
