@@ -355,40 +355,41 @@ const ComponentsDatatablesTrainee = () => {
     newVariable = window.navigator;
 
     if (type === "csv") {
-      let coldelimiter = ";";
-      let linedelimiter = "\n";
-      let result = columns
-        .map((d: any) => {
-          return capitalize(d);
-        })
-        .join(coldelimiter);
-      result += linedelimiter;
-      records.map((item: any) => {
-        columns.map((d: any, index: any) => {
-          if (index > 0) {
-            result += coldelimiter;
-          }
-          let val = item[d] ? item[d] : "";
-          result += val;
-        });
+        let coldelimiter = ";";
+        let linedelimiter = "\n";
+        let result = columns
+          .map((d) => capitalize(d))
+          .join(coldelimiter);
         result += linedelimiter;
-      });
-
-      if (result == null) return;
-      if (!result.match(/^data:text\/csv/i) && !newVariable.msSaveOrOpenBlob) {
-        var data =
-          "data:application/csv;charset=utf-8," + encodeURIComponent(result);
-        var link = document.createElement("a");
-        link.setAttribute("href", data);
-        link.setAttribute("download", filename + ".csv");
-        link.click();
-      } else {
-        var blob = new Blob([result]);
-        if (newVariable.msSaveOrOpenBlob) {
-          newVariable.msSaveBlob(blob, filename + ".csv");
+        records.forEach((item) => {
+          columns.forEach((d, index) => {
+            if (index > 0) {
+              result += coldelimiter;
+            }
+            let val = item[d] ? item[d] : "";
+            // Check if the column is date and format it
+            if (d === "date" && val) {
+              val = formatDate(val); // Use formatDate to format date columns
+            }
+            result += val;
+          });
+          result += linedelimiter;
+        });
+    
+        if (result == null) return;
+        if (!result.match(/^data:text\/csv/i) && !newVariable.msSaveOrOpenBlob) {
+          var data = "data:application/csv;charset=utf-8," + encodeURIComponent(result);
+          var link = document.createElement("a");
+          link.setAttribute("href", data);
+          link.setAttribute("download", filename + ".csv");
+          link.click();
+        } else {
+          var blob = new Blob([result]);
+          if (newVariable.msSaveBlob) {
+            newVariable.msSaveBlob(blob, filename + ".csv");
+          }
         }
-      }
-    } else if (type === "print") {
+      }  else if (type === "print") {
       var rowhtml = "<p>" + filename + "</p>";
       rowhtml +=
         '<table style="width: 100%; " cellpadding="0" cellcpacing="0"><thead><tr style="color: #515365; background: #eff5ff; -webkit-print-color-adjust: exact; print-color-adjust: exact; "> ';
