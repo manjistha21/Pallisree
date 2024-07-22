@@ -77,8 +77,6 @@ const Genders = [
   "Male",
 ];
 
-
-
 const Sports = [
   "Cricket",
   "Football",
@@ -115,6 +113,7 @@ const ComponentsDatatablesTrainee = () => {
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
   const [ageFilter, setAgeFilter] = useState("");
+  const [genderFilter, setGenderFilter] = useState("");
 
   const newDocumnetadded = () => {
     MySwal.fire({
@@ -236,6 +235,7 @@ const ComponentsDatatablesTrainee = () => {
         ageFilter &&
         Math.floor(dayjs().diff(dayjs(item.date), "year")) ===
           parseInt(ageFilter);
+      const isGenderMatch = !genderFilter || item.gender === genderFilter;
 
       return (
         (search === "" ||
@@ -256,14 +256,15 @@ const ComponentsDatatablesTrainee = () => {
           item.bloodgroup.toLowerCase().includes(search.toLowerCase()) ||
           item.document.toString().includes(search.toLowerCase())) &&
         isInDateRange &&
-        (!ageFilter || age)
+        (!ageFilter || age) &&
+        isGenderMatch
       );
     });
 
     setRecordsData(
       filteredRecords.slice((page - 1) * pageSize, page * pageSize)
     );
-  }, [search, initialRecords, page, pageSize, startDate, endDate, ageFilter]);
+  }, [search, initialRecords, page, pageSize, startDate, endDate, ageFilter, genderFilter]);
 
   const handleAddCustomerClick = (e: any) => {
     e.stopPropagation();
@@ -646,6 +647,7 @@ const ComponentsDatatablesTrainee = () => {
     setStartDate(null);
     setEndDate(null);
     setAgeFilter("");
+    setGenderFilter("");
     setSearch("");
   };
 
@@ -721,8 +723,6 @@ const ComponentsDatatablesTrainee = () => {
                                   className="form-input"
                                 />
                               </div>
-
-
 
                               <div>
                                 <label htmlFor="sportstype">
@@ -803,8 +803,6 @@ const ComponentsDatatablesTrainee = () => {
                                 />
                               </div>
 
-
-
                               <div>
                                 <label htmlFor="gender">
                                   Gender
@@ -826,7 +824,6 @@ const ComponentsDatatablesTrainee = () => {
                                   ))}
                                 </select>
                               </div>
-
 
                               <div>
                                 <label htmlFor="address">Address</label>
@@ -992,6 +989,18 @@ const ComponentsDatatablesTrainee = () => {
           {[...Array(76)].map((_, index) => (
             <option key={index + 5} value={index + 5}>
               {index + 5} years
+            </option>
+          ))}
+        </select>
+        <select
+          className="form-input"
+          value={genderFilter}
+          onChange={(e) => setGenderFilter(e.target.value)}
+        >
+          <option value="">Select Gender</option>
+          {Genders.map((gender) => (
+            <option key={gender} value={gender}>
+              {gender}
             </option>
           ))}
         </select>
