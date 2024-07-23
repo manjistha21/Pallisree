@@ -99,7 +99,7 @@ const ComponentsDashboardSales = () => {
                   <th className="p-3 border-b">Image</th>
                   <th className="p-3 border-b">Name</th>
                   <th className="p-3 border-b">Phone No</th>
-                  <th className="p-3 border-b">Email</th>
+                  
                 </tr>
               </thead>
               <tbody>
@@ -115,7 +115,7 @@ const ComponentsDashboardSales = () => {
                       </td>
                       <td className="p-3 border-b">{clubmember.name}</td>
                       <td className="p-3 border-b">{clubmember.phoneno}</td>
-                      <td className="p-3 border-b">{clubmember.email}</td>
+                     
                     </tr>
                   ))
                 )}
