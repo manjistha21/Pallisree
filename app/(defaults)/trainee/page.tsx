@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 const Export = () => {
   return(
      <DefaultLayout>
-        <ComponentsDatatablesTrainee />;
+        <ComponentsDatatablesTrainee />
      </DefaultLayout>
   );
 };
