@@ -114,6 +114,7 @@ const ComponentsDatatablesTrainee = () => {
   const [endDate, setEndDate] = useState(null);
   const [ageFilter, setAgeFilter] = useState("");
   const [genderFilter, setGenderFilter] = useState("");
+  const [sportstypeFilter, setSportstypeFilter] = useState("");
 
   const newDocumnetadded = () => {
     MySwal.fire({
@@ -231,11 +232,15 @@ const ComponentsDatatablesTrainee = () => {
       const isInDateRange =
         (!startDate || dayjs(itemDate).isAfter(startDate)) &&
         (!endDate || dayjs(itemDate).isBefore(endDate));
-      const age =
+      const age = ageFilter
+        ? Math.floor(dayjs().diff(dayjs(item.date), "year"))
+        : null;
+      const isAgeMatch =
         ageFilter &&
-        Math.floor(dayjs().diff(dayjs(item.date), "year")) ===
-          parseInt(ageFilter);
+        age >= 5 &&
+        age <= parseInt(ageFilter);
       const isGenderMatch = !genderFilter || item.gender === genderFilter;
+      const isSportstypeMatch = !sportstypeFilter || item.sportstype === sportstypeFilter;
 
       return (
         (search === "" ||
@@ -256,15 +261,16 @@ const ComponentsDatatablesTrainee = () => {
           item.bloodgroup.toLowerCase().includes(search.toLowerCase()) ||
           item.document.toString().includes(search.toLowerCase())) &&
         isInDateRange &&
-        (!ageFilter || age) &&
-        isGenderMatch
+        (!ageFilter || isAgeMatch) &&
+        isGenderMatch &&
+        isSportstypeMatch
       );
     });
 
     setRecordsData(
       filteredRecords.slice((page - 1) * pageSize, page * pageSize)
     );
-  }, [search, initialRecords, page, pageSize, startDate, endDate, ageFilter, genderFilter]);
+  }, [search, initialRecords, page, pageSize, startDate, endDate, ageFilter, genderFilter, sportstypeFilter]);
 
   const handleAddCustomerClick = (e: any) => {
     e.stopPropagation();
@@ -648,6 +654,7 @@ const ComponentsDatatablesTrainee = () => {
     setEndDate(null);
     setAgeFilter("");
     setGenderFilter("");
+    setSportstypeFilter("");
     setSearch("");
   };
 
@@ -988,7 +995,7 @@ const ComponentsDatatablesTrainee = () => {
           <option value="">Select Age</option>
           {[...Array(76)].map((_, index) => (
             <option key={index + 5} value={index + 5}>
-              {index + 5} years
+              5 - {index + 5} years
             </option>
           ))}
         </select>
@@ -1001,6 +1008,18 @@ const ComponentsDatatablesTrainee = () => {
           {Genders.map((gender) => (
             <option key={gender} value={gender}>
               {gender}
+            </option>
+          ))}
+        </select>
+        <select
+          className="form-input"
+          value={sportstypeFilter}
+          onChange={(e) => setSportstypeFilter(e.target.value)}
+        >
+          <option value="">Select Sportstype</option>
+          {Sports.map((sportstype) => (
+            <option key={sportstype} value={sportstype}>
+              {sportstype}
             </option>
           ))}
         </select>
