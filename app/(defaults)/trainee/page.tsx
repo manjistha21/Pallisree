@@ -10,7 +10,11 @@ export const metadata: Metadata = {
 };
 
 const Export = () => {
-  return <ComponentsDatatablesTrainee />;
+  return(
+     <DefaultLayout>
+        <ComponentsDatatablesTrainee />;
+     </DefaultLayout>
+  );
 };
 
 export default Export;
