@@ -6,8 +6,8 @@ const s3 = new S3Client({
   endpoint: 'https://blr1.digitaloceanspaces.com',
   region: 'blr1',
   credentials: {
-    accessKeyId: process.env.DO_SPACES_KEY!,
-    secretAccessKey: process.env.DO_SPACES_SECRET!,
+    accessKeyId: 'DO00ZKVH67MAVWTMY433',
+    secretAccessKey: 'kvXOFmo6fiJqNv/klNVZsMk7sCDxFhsE8CuMEg6uDE0',
   },
 });
 
@@ -44,7 +44,7 @@ export async function POST(req) {
       const arrayBuffer = await documentfile.arrayBuffer();
       const buffer = Buffer.from(arrayBuffer);
       const params = {
-        Bucket: process.env.DO_SPACES_BUCKET,
+        Bucket: 'pallisree',
         Key: documentfilename,
         Body: buffer,
         ACL: 'public-read',
