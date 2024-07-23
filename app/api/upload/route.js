@@ -11,17 +11,17 @@ const s3 = new S3Client({
   },
 });
 
-export async function POST(req: NextRequest) {
+export async function POST(req) {
   if (!req.headers.get('content-type')?.startsWith('multipart/form-data')) {
     return NextResponse.json({ error: 'Invalid content type' }, { status: 400 });
   }
 
   try {
     const formData = await req.formData();
-    const file = formData.get('file') as Blob;
-    const documentfile = formData.get('documentfile') as Blob;
-    const imageName = formData.get('imageName') as string;
-    const documentfilename = formData.get('documentfilename') as string;
+    const file = formData.get('file');
+    const documentfile = formData.get('documentfile');
+    const imageName = formData.get('imageName');
+    const documentfilename = formData.get('documentfilename');
 
     const fileUploads = [];
 
@@ -44,7 +44,7 @@ export async function POST(req: NextRequest) {
       const arrayBuffer = await documentfile.arrayBuffer();
       const buffer = Buffer.from(arrayBuffer);
       const params = {
-        Bucket: process.env.DO_SPACES_BUCKET!,
+        Bucket: process.env.DO_SPACES_BUCKET,
         Key: documentfilename,
         Body: buffer,
         ACL: 'public-read',
