@@ -6,8 +6,8 @@ const s3 = new S3Client({
   endpoint: 'https://blr1.digitaloceanspaces.com',
   region: 'blr1',
   credentials: {
-    accessKeyId: process.env.DO_SPACES_KEY!,
-    secretAccessKey: process.env.DO_SPACES_SECRET!,
+    accessKeyId: process.env.DO_SPACES_KEY,
+    secretAccessKey: process.env.DO_SPACES_SECRET,
   },
 });
 
@@ -29,7 +29,7 @@ export async function POST(req: NextRequest) {
       const arrayBuffer = await file.arrayBuffer();
       const buffer = Buffer.from(arrayBuffer);
       const params = {
-        Bucket: process.env.DO_SPACES_BUCKET!,
+        Bucket: process.env.DO_SPACES_BUCKET,
         Key: imageName,
         Body: buffer,
         ACL: 'public-read',
