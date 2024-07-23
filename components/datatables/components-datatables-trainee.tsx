@@ -72,6 +72,18 @@ const col = [
   "document",
 ];
 
+const Bloods = [
+     "A+",
+     "A-",
+     "B+",
+     "B-",
+     "AB+",
+    "AB-",
+    "O+",
+    "O-",
+];
+
+
 const Genders = [
   "Female",
   "Male",
@@ -886,16 +898,25 @@ const ComponentsDatatablesTrainee = () => {
                                 />
                               </div>
                               <div>
-                                <label htmlFor="bloodgroup">Blood Group</label>
-                                <input
+                                <label htmlFor="bloodgroup">
+                                  Blood Group
+                                </label>
+                                <select
                                   id="bloodgroup"
-                                  type="text"
                                   name="bloodgroup"
-                                  placeholder="Enter blood group"
+                                  className="form-select"
                                   onChange={handleChange}
-                                  className="form-input"
                                   value={formData.bloodgroup}
-                                />
+                                >
+                                  <option value="">
+                                    Select Blood Group
+                                  </option>
+                                  {Bloods.map((type) => (
+                                    <option key={type} value={type}>
+                                      {type}
+                                    </option>
+                                  ))}
+                                </select>
                               </div>
 
                               <div>
