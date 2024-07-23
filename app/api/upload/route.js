@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3';
-import { v4 as uuidv4 } from 'uuid';
+
 
 const s3 = new S3Client({
   endpoint: 'https://blr1.digitaloceanspaces.com',
