@@ -1,3 +1,4 @@
+"use client";
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import IconSearch from '@/components/icon/icon-search'; // Assuming you have a search icon component
