@@ -237,8 +237,8 @@ const ComponentsDatatablesTrainee = () => {
         : null;
       const isAgeMatch =
         ageFilter &&
-        age >= 5 &&
-        age <= parseInt(ageFilter);
+        age >= parseInt(ageFilter.split("-")[0]) &&
+        age <= parseInt(ageFilter.split("-")[1]);
       const isGenderMatch = !genderFilter || item.gender === genderFilter;
       const isSportstypeMatch = !sportstypeFilter || item.sportstype === sportstypeFilter;
 
@@ -994,8 +994,8 @@ const ComponentsDatatablesTrainee = () => {
         >
           <option value="">Select Age</option>
           {[...Array(76)].map((_, index) => (
-            <option key={index + 5} value={index + 5}>
-              5 - {index + 5} years
+            <option key={index} value={`${index + 4}-${index + 5}`}>
+              {index + 4} - {index + 5} years
             </option>
           ))}
         </select>
