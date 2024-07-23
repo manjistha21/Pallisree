@@ -11,9 +11,9 @@ export const metadata: Metadata = {
 
 const Export = () => {
   return(
-    
-        <ComponentsDatatablesTrainee />;
-     
+     <DefaultLayout>
+        <ComponentsDatatablesTrainee />
+     </DefaultLayout>
   );
 };
 
