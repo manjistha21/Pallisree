@@ -1,50 +1,65 @@
-import { writeFile, mkdir } from 'fs/promises';
-import path from 'path';
 import { NextRequest, NextResponse } from 'next/server';
+import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3';
+import { v4 as uuidv4 } from 'uuid';
 
-const uploadDir = path.join(process.cwd(), 'public/assets/images');
+const s3 = new S3Client({
+  endpoint: 'https://blr1.digitaloceanspaces.com',
+  region: 'blr1',
+  credentials: {
+    accessKeyId: process.env.DO_SPACES_KEY!,
+    secretAccessKey: process.env.DO_SPACES_SECRET!,
+  },
+});
 
-async function ensureDir(dir) {
-  try {
-    await mkdir(dir, { recursive: true });
-  } catch (error) {
-    console.error(`Error ensuring directory exists: ${error}`);
-  }
-}
-
-export async function POST(req) {
-  await ensureDir(uploadDir);
-
+export async function POST(req: NextRequest) {
   if (!req.headers.get('content-type')?.startsWith('multipart/form-data')) {
     return NextResponse.json({ error: 'Invalid content type' }, { status: 400 });
   }
 
   try {
     const formData = await req.formData();
-    const file = formData.get('file');
-    const documentfile = formData.get('documentfile');
-    const imageName = formData.get('imageName');
-    const documentfilename = formData.get('documentfilename');
+    const file = formData.get('file') as Blob;
+    const documentfile = formData.get('documentfile') as Blob;
+    const imageName = formData.get('imageName') as string;
+    const documentfilename = formData.get('documentfilename') as string;
 
-    const fileWrites = [];
+    const fileUploads = [];
 
     if (file && imageName) {
-      const filePath = path.join(uploadDir, imageName);
-      fileWrites.push(writeFile(filePath, Buffer.from(await file.arrayBuffer())));
+      const arrayBuffer = await file.arrayBuffer();
+      const buffer = Buffer.from(arrayBuffer);
+      const params = {
+        Bucket: process.env.DO_SPACES_BUCKET!,
+        Key: imageName,
+        Body: buffer,
+        ACL: 'public-read',
+        ContentType: file.type,
+      };
+      const command = new PutObjectCommand(params);
+      fileUploads.push(s3.send(command));
       console.log(`File saved as ${imageName}`);
     }
 
     if (documentfile && documentfilename) {
-      const documentPath = path.join(uploadDir, documentfilename);
-      fileWrites.push(writeFile(documentPath, Buffer.from(await documentfile.arrayBuffer())));
+      const arrayBuffer = await documentfile.arrayBuffer();
+      const buffer = Buffer.from(arrayBuffer);
+      const params = {
+        Bucket: process.env.DO_SPACES_BUCKET!,
+        Key: documentfilename,
+        Body: buffer,
+        ACL: 'public-read',
+        ContentType: documentfile.type,
+      };
+      const command = new PutObjectCommand(params);
+      fileUploads.push(s3.send(command));
       console.log(`Document saved as ${documentfilename}`);
     }
 
-    await Promise.all(fileWrites);
+    await Promise.all(fileUploads);
     console.log('Files uploaded successfully');
     return NextResponse.json({ success: true });
   } catch (error) {
-    console.error('Error writing files:', error);
+    console.error('Error uploading files:', error);
     return NextResponse.json({ error: `Something went wrong: ${error.message}` }, { status: 500 });
   }
 }
